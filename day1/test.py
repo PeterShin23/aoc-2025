@@ -42,6 +42,8 @@ data = None
 with open('input.txt', 'r') as f:
   data = [(line[0], int(line[1:])) for line in f.read().strip().split('\n')]
 
+
+# Part 1
 hits = 0
 curr = 50
 
@@ -63,4 +65,40 @@ for direction, amount in data:
   elif curr > 100:
     curr -= 100
   
+print("Hits:", hits)
+
+# Part 2
+hits = 0
+curr = 50
+
+for direction, amount in data:
+  original_amount = amount
+  amount = amount % 100
+
+  # Calculate how many times we cross 0 during this rotation
+  if direction == 'R':
+    crossings = (curr + original_amount) // 100
+  else:
+    # How many complete laps backwards from curr position
+    if curr == 0:
+      crossings = original_amount // 100
+    else:
+      crossings = (original_amount + 100 - curr) // 100
+
+  hits += crossings
+
+  # Clean up curr position
+  if direction == 'L':
+    amount = -amount
+
+  curr += amount
+  if curr == 0:
+    pass  # already counted crossing
+  elif curr < 0:
+    curr = 100 + curr
+  elif curr == 100:
+    curr = 0
+  elif curr > 100:
+    curr -= 100
+
 print("Hits:", hits)
