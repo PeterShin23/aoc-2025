@@ -40,7 +40,7 @@ for start, end in data:
         second_half = s[half:]
 
         if first_half == second_half:
-            total += int(s)
+            total += i
 
 print(total)
 
@@ -56,7 +56,7 @@ for start, end in data:
                 continue
             repeat = s[:chunk]
             if repeat * (length // chunk) == s and repeat != s:
-                total += int(s)
+                total += i
                 break
 
 print(total)
